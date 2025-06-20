@@ -20,6 +20,8 @@ jobs:
       Integration: API
     steps:
     - uses: actions/checkout@v4
+      with:
+        nameForAction: ${{ vars.MYSUPERSECRET }}
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
@@ -34,8 +36,8 @@ jobs:
     - name: Run Playwright tests
       run: npx playwright test
       env: 
-        Username: ${{secrets.USERNAME}}
-        Baseurl: ${{vars.BASEURL}}
+        Username: ${{secrets.MYSUPERSECRET}}
+        Baseurl: ${{vars.REPOSITORYVARIABLES}}
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
